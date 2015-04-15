@@ -14,4 +14,14 @@ At the moment the rep is still under development. The project status looks like 
   4. Recieve Server-message on Client             Done
   5. Change LED pin 13 on Client from Server      Next
 
+To see the current code in function, go to:
+http://yunobomber-cuebo.rhcloud.com/
+
+You will see a 'Hello World' message.
+
+Add one of the two extentions to the url(http://yunobomber-cuebo.rhcloud.com/), to change the server message:
+
+ "http://yunobomber-cuebo.rhcloud.com"                          -> Will console.log "Hello World"
+ "http://yunobomber-cuebo.rhcloud.com/arduino/digital/13/1"    -> Will console.log "Led 13 is on"
+ "http://yunobomber-cuebo.rhcloud.com/arduino/digital/13/0"    -> Will console.log "Led 13 is off"
 
