@@ -1,6 +1,6 @@
 # yunirest
 
-YuniBomber contain of two files, some server code and an Arduino sketch (Yun). 
+YuniBomber contain two files, some server code and an Arduino sketch (Yun). 
 Putting the two files to use, will give you a nodejs-server and a Arduino-Yun-Client.
 
 The aim of the project, is to communicate between two Arduino Yun, working as clients, over a nodejs-server. 
