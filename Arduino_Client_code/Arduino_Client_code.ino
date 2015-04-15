@@ -32,6 +32,14 @@ void loop() {
   delay(5000);
 }
 
+void process(HttpClient client) {
+  String command = client.readStringUntil('/');
+
+  if (command == "digital") {
+    digitalCommand(client);
+  }
+}
+
 void digitalCommand(HttpClient client) {
   int pin, value;
 
