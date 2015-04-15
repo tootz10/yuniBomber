@@ -21,7 +21,7 @@ You will see a 'Hello World' message.
 
 Add one of the two extentions to the url(http://yunobomber-cuebo.rhcloud.com/), to change the server message:
 
- "http://yunobomber-cuebo.rhcloud.com"                          -> Will console.log "Hello World"
- "http://yunobomber-cuebo.rhcloud.com/arduino/digital/13/1"    -> Will console.log "Led 13 is on"
- "http://yunobomber-cuebo.rhcloud.com/arduino/digital/13/0"    -> Will console.log "Led 13 is off"
+http://yunobomber-cuebo.rhcloud.com                        -> Will console.log "Hello World"
+http://yunobomber-cuebo.rhcloud.com/arduino/digital/13/1   -> Will console.log "Led 13 is on"
+http://yunobomber-cuebo.rhcloud.com/arduino/digital/13/0   -> Will console.log "Led 13 is off"
 
