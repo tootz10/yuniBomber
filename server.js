@@ -1,5 +1,10 @@
+var express = require('express');
 var http = require('http');														// use the http lib for nodejs
 var url = require('url');														// url-module is used to parse and manipulate url's
+
+var app = express();
+
+//app.set('port', 8080);
 
 var server = http.createServer(function(request, response){						// Here we pass an anonymous function, that decide what to do on connection
 	console.log('Connection');													// On every connect/response interaction with our server, write 'Connection' in cmd line
@@ -32,4 +37,11 @@ var server = http.createServer(function(request, response){						// Here we pass
 															
 });
 
-server.listen(8001);
+//server.listen(8080);
+
+var server_port = process.env.OPENSHIFT_NODEJS_PORT || 8080
+var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1'
+ 
+server.listen(server_port, server_ip_address, function () {
+  console.log( "Listening on " + server_ip_address + ", server_port " + server_port )
+});
