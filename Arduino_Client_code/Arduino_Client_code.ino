@@ -1,48 +1,38 @@
 /*
  Possible commands created in this shetch:
- * "/arduino/digital/13/1"   -> digitalWrite(13, HIGH)
- * "/arduino/digital/13/0"   -> digitalWrite(13, LOW)
-
- This example code is part of the public domain
- http://arduino.cc/en/Tutorial/Bridge
+ * "http://yunobomber-cuebo.rhcloud.com"                         -> Serial Monitor "Hello World"
+ * "http://yunobomber-cuebo.rhcloud.com/arduino/digital/13/1"    -> Serial Monitor "Led 13 is on"  &  digitalWrite(13, HIGH)
+ * "http://yunobomber-cuebo.rhcloud.com//arduino/digital/13/0"   -> Serial Monitor "Led 13 is off" &  digitalWrite(13, LOW)
  */
-#include <Bridge.h>
-#include <YunClient.h>
+ 
+#include <Bridge.h>   
+#include <HttpClient.h>
+
+HttpClient client;
 
 void setup() {
-  // Bridge startup
-  Bridge.begin();
+  Bridge.begin();                                                          // Bridge startup
 
   Serial.begin(9600);
-  
-  // Get clients coming from server
-  YunClient client = client.connect("localhost:8001/arduino/digital/13/1", 8001);
-  //client.connect("localhost:8001", 8001);
-  
-  while (!Serial); // wait for a serial connection
+  while (!Serial);                                                         // wait for a serial connection
 }
 
 void loop() {
-  YunClient client;
-  //client.get("http://localhost:8001/arduino/digital/1");
- 
- char c = client.connected();  //  Test connection
- Serial.println(c);            //  Print connection
- 
-  delay(50); // Poll every 50ms
-}
+  // Initialize the client library
+  HttpClient client;
 
-void process(YunClient client) {
-  // read the command
-  String command = client.readStringUntil('/');
-
-  // is "digital" command?
-  if (command == "digital") {
-    digitalCommand(client);
+  // Make a HTTP request:
+  client.get("http://yunobomber-cuebo.rhcloud.com");       // Insert alternative url for other commands - See explanation at top
+ 
+  while (client.available()) {                             // Read message from server
+    char c = client.read();
+    Serial.print(c);
   }
+  Serial.flush();
+  delay(5000);
 }
 
-void digitalCommand(YunClient client) {
+void digitalCommand(HttpClient client) {
   int pin, value;
 
   // Read pin number
@@ -58,8 +48,3 @@ void digitalCommand(YunClient client) {
     Serial.println('Error: Could not read url!');
   }
 }
-
-
-
-
-
