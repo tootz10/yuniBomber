@@ -1,4 +1,4 @@
-# yunirest
+# YuniBomber
 
 YuniBomber contain two files, some server code and an Arduino sketch (Yun). 
 Putting the two files to use, will give you a nodejs-server and a Arduino-Yun-Client.
