@@ -28,6 +28,12 @@ var server = http.createServer(function(request, response){						// Here we pass
 			console.log('Led 13 is on');
 			response.end();
 			break;
+		case '/blink':
+			response.writeHead(200, {'Content-Type': 'text/html'});
+			response.write('1');
+			console.log('1');
+			response.end();
+			break;
 		default:
 			response.writeHead(404);
 			response.write("Oops, this doesn't exist - 404");					// Here we write the actual response to the header, more precisely our html message
