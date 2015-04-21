@@ -1,58 +1,28 @@
 /*
  Possible commands created in this shetch:
  * "http://yunobomber-cuebo.rhcloud.com"                         -> Serial Monitor "Hello World"
- * "http://yunobomber-cuebo.rhcloud.com/arduino/digital/13/1"    -> Serial Monitor "Led 13 is on"  &  digitalWrite(13, HIGH)
- * "http://yunobomber-cuebo.rhcloud.com//arduino/digital/13/0"   -> Serial Monitor "Led 13 is off" &  digitalWrite(13, LOW)
+ * "http://yunobomber-cuebo.rhcloud.com/blink"                   -> Serial Monitor "1" Makes LED pin 13 blink on/off every second
  */
  
 #include <Bridge.h>   
 #include <HttpClient.h>
-
 HttpClient client;
 
 void setup() {
-  Bridge.begin();                                                          // Bridge startup
-
-  Serial.begin(9600);
-  while (!Serial);                                                         // wait for a serial connection
+  Bridge.begin();                                              // Bridge startup
+  Serial.begin(115200);
+  while (!Serial);                                             // wait for a serial connection
+  pinMode(13, OUTPUT);                                         // initialize digital pin 13 as an output.
 }
 
 void loop() {
-  // Initialize the client library
-  HttpClient client;
-
-  // Make a HTTP request:
-  client.get("http://yunobomber-cuebo.rhcloud.com");       // Insert alternative url for other commands - See explanation at top
+  client.get("http://yunibomber-cuebo.rhcloud.com/blink");    // Make a HTTP request:
  
-  while (client.available()) {                             // Read message from server
-    char c = client.read();
-    Serial.print(c);
-  }
-  Serial.flush();
-  delay(5000);
-}
-
-void process(HttpClient client) {
-  String command = client.readStringUntil('/');
-
-  if (command == "digital") {
-    digitalCommand(client);
-  }
-}
-
-void digitalCommand(HttpClient client) {
-  int pin, value;
-
-  // Read pin number
-  pin = client.parseInt();
-
-  // If the next character is a '/' it means we have an URL
-  // with a value like: "/digital/13/1"
-  if (client.read() == '/') {
-    value = client.parseInt();
-    digitalWrite(pin, value);
-  }
-  else {
-    Serial.println('Error: Could not read url!');
-  }
+  while (client.available()) {                                // Read message from server
+    int val = client.read();                                  // Val is a char and 1 is = 49
+    int newVal = val - 48;                                    // So 49 - 48 is = 1
+    if (newVal == 1){
+      digitalWrite(13, HIGH);                                 // turn the LED on (HIGH is the voltage level)
+    }
+  } 
 }
